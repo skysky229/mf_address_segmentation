@@ -1,0 +1,12 @@
+{
+  "prefixes": [
+    "phuong", "p", "xa", "x", "thi tran", "tt",
+    "thanh pho", "tp", "tinh", "t", "thi xa", "tx",
+    "quan", "q", "huyen", "h",
+    "duong", "d"
+  ],
+  "abbreviations": {
+    "hcm": "ho chi minh",
+    "hn": "ha noi"
+  }
+}

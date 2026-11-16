@@ -1,0 +1,22 @@
+[
+  {
+    "address": "63 Nam Kỳ Khởi Nghĩa, Phường Bến Thành, Thành phố Hồ Chí Minh",
+    "result": {"street": "Nam Kỳ Khởi Nghĩa", "ward": "Phường Bến Thành", "province": "Thành phố Hồ Chí Minh"}
+  },
+  {
+    "address": "56/33 Nam Kỳ Khởi Nghĩa, Phường Bến Thành, Thành phố Hồ Chí Minh",
+    "result": {"street": "Nam Kỳ Khởi Nghĩa", "ward": "Phường Bến Thành", "province": "Thành phố Hồ Chí Minh"}
+  },
+  {
+    "address": "69/49/59 Nam Kỳ Khởi Nghĩa, Phường Bến Thành, Thành phố Hồ Chí Minh",
+    "result": {"street": "Nam Kỳ Khởi Nghĩa", "ward": "Phường Bến Thành", "province": "Thành phố Hồ Chí Minh"}
+  },
+  {
+    "address": "12 Nam Ky Khoi Nghia, P. Ben Thanh, TP.HCM",
+    "result": {"street": "Nam Kỳ Khởi Nghĩa", "ward": "Phường Bến Thành", "province": "Thành phố Hồ Chí Minh"}
+  },
+  {
+    "address": "5 Hàng Bạc, Hoàn Kiếm, Hà Nội",
+    "result": {"street": "Hàng Bạc", "ward": "Phường Hoàn Kiếm", "province": "Thành phố Hà Nội"}
+  }
+]

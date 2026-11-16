@@ -1,0 +1,5 @@
+{
+  "provinces": ["Thành phố Hồ Chí Minh", "Thành phố Hà Nội", "Tỉnh Tây Ninh"],
+  "wards": ["Phường Bến Thành", "Phường Sài Gòn", "Phường Hoàn Kiếm", "Xã Thuận Thành"],
+  "streets": ["Nam Kỳ Khởi Nghĩa", "Lý Thường Kiệt", "Sư Vạn Hạnh", "Hàng Bạc"]
+}
