@@ -1,12 +1,54 @@
 {
-  "prefixes": [
-    "phuong", "p", "xa", "x", "thi tran", "tt",
-    "thanh pho", "tp", "tinh", "t", "thi xa", "tx",
-    "quan", "q", "huyen", "h",
-    "duong", "d"
-  ],
-  "abbreviations": {
+  "_doc": "Vocabulary for src/normalize.py. Prefix words are written with accents; matching is accent-tolerant (see accent_required).",
+  "prefixes": {
+    "ward": ["phường", "p", "xã", "x", "thị trấn", "tt", "khu phố", "kp", "tổ", "thôn"],
+    "province": ["tỉnh", "t", "thành phố", "tp"],
+    "district": ["thị xã", "tx", "quận", "q", "huyện", "h"],
+    "street": ["đường", "đ", "d", "phố", "ngõ", "hẻm", "ngách", "kiệt", "số nhà"]
+  },
+  "alley_prefixes": ["ngõ", "hẻm", "ngách", "kiệt", "số nhà"],
+  "accent_required": ["tổ"],
+  "mid_part_prefixes": ["tp", "tt", "tx", "kp", "phường", "thị trấn", "thành phố", "tỉnh", "huyện", "quận", "thị xã", "xã"],
+  "glued_prefixes": ["p", "t", "tp", "tt", "tx", "h", "x", "q", "kp"],
+  "digit_glued_prefixes": ["p", "q", "kp"],
+  "country_suffixes": ["việt nam", "vietnam", "vn"],
+  "province_aliases": {
     "hcm": "ho chi minh",
-    "hn": "ha noi"
+    "hcmc": "ho chi minh",
+    "tphcm": "ho chi minh",
+    "sg": "ho chi minh",
+    "sai gon": "ho chi minh",
+    "saigon": "ho chi minh",
+    "hn": "ha noi",
+    "hanoi": "ha noi",
+    "dn": "da nang",
+    "danang": "da nang"
+  },
+  "token_aliases": {
+    "ql": "quoc lo",
+    "cmt8": "cach mang thang 8",
+    "cmtt8": "cach mang thang 8",
+    "nkkn": "nam ky khoi nghia",
+    "ntmk": "nguyen thi minh khai",
+    "dbp": "dien bien phu",
+    "thd": "tran hung dao"
+  },
+  "date_streets": {
+    "1/5": "1 thang 5",
+    "2/9": "2 thang 9",
+    "3/2": "3 thang 2",
+    "3/4": "3 thang 4",
+    "19/5": "19 thang 5",
+    "19/8": "19 thang 8",
+    "23/9": "23 thang 9",
+    "30/4": "30 thang 4",
+    "30/10": "30 thang 10"
+  },
+  "variants": {
+    "si": "sy",
+    "ki": "ky",
+    "li": "ly",
+    "mi": "my",
+    "qui": "quy"
   }
 }
