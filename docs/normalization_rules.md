@@ -1,0 +1,18 @@
+# Normalization rules (src/normalize.py)
+
+`normalize(text) -> list[str]` is applied to every input address and every database entry, so both sides meet in the same form. `normalize_parts(text)` returns the same tokens grouped by comma-separated part; `prefix_hints(text)` returns the field implied by the prefix removed from each part (`ward`, `province`, `district`, `street`, or `None`). Vocabulary lives in `src/aliases.json`.
+
+Rules in pipeline order:
+
+1. **Unicode NFC, canonical form.** Input is composed to NFC; the final form is accent-free, so old/new tone placement (hoà/hòa, thuỷ/thủy) meet automatically. Accents are kept only until step 5 to tell prefixes from names (phường vs phương). `Hoà Khánh` = `Hòa Khánh` -> `hoa khanh`.
+2. **Split into parts** on `,` `;` `|` newline and on spaced dashes ` - `. Hyphens inside tokens stay (`D3-5E`). `Cầu Dứa - Phú Nông` -> two parts.
+3. **Split glued tokens** (original case): lower->UPPER (`ThuanThanh`, `PhườngTuần`); capital run then lowercase, when the capitals before the last one are a prefix (`TPĐà` -> `TP Đà`, `PBồ`, `TQuảng`, `HCần`); first word of a part with a capital prefix letter and an impossible onset (`Tlong An` -> `T long An`); `P3`, `Q1`, `KP2` at part start. Names like `B5`, `4A` are not split.
+4. **Strip accents and lowercase** (`đ` -> `d`).
+5. **Position-aware prefix removal.** Prefixes (phường/p, xã/x, thị trấn/tt, khu phố/kp, tổ, thôn, tỉnh/t, thành phố/tp, thị xã/tx, quận/q, huyện/h, đường/đ/d, phố, ngõ, hẻm, ngách, kiệt, số nhà; dotted or not) are removed repeatedly only at the start of a part, always keeping at least one token. Mid-part removal happens only for dotted single words (`H.`), `tp tt tx kp`, and accented full words (`Quận`, `Thành phố`). `Bình Dương`, `Cam Đường`, `Phúc Xá`, `An Dương Vương`, `Huyền Quang` are untouched. Accented words that are not the prefix spelling are kept (`Phượng`). `tổ` needs its accent (`Tô Hiệu` is a name). `ấp` is not stripped: `Ấp Bắc` is a street. `đại lộ` and `quốc lộ` are never removed.
+6. **House numbers.** A leading number token (`42/145/60`, `268`, `74/59 B`) is dropped when more tokens follow, unless the next token is `tháng` (`2 Tháng 9`) or the number follows a ward/district/province prefix (`Phường 12`). After an alley prefix, `số 177` is also dropped. `Đường số 8` -> `so 8`; `467 số 2` -> `so 2`; `Hói Kiểng 12`, `B5`, single entries `1`/`12` stay. DB streets that contain an alley prefix reduce the same way as inputs: `Hẻm Số 60 Đường Cách Mạng Tháng 8` -> `cach mang thang 8`, `Ngõ Hợp Nhất` -> `hop nhat` (so `Ngách 3 Ngõ Hợp Nhất` meets it).
+7. **Aliases.** Province abbreviations (`hcm tphcm sg sài gòn -> ho chi minh`, `hn`, `dn`) only at the end of a part that is last or consists only of the abbreviation. Anywhere: `ql`/`ql1a` -> `quoc lo`, `cmt8`, a few street initialisms. Date streets (`3/2`, `2/9`, `30/4`...) become `3 thang 2` after a street prefix or when alone. Trailing `Việt Nam`/`VN` is dropped. Variants `si/sy`, `ki/ky`, `li/ly`, `mi/my`, `qui/quy` are unified.
+8. **Not implemented:** dictionary word-break for glued lowercase text (`tpdanang`, `thuanthanh` without case cues). It needs a DB syllable list; suggested for lookup/parse if needed.
+
+Not handled on purpose: OCR first-letter loss (`oàn Hoàng Minh`, `ặng Thái Thân`, `ại lộ`), left to fuzzy lookup.
+
+References: Unicode TR15 (normalization forms); libpostal `expand_address` and USPS Publication 28 (abbreviation/alias tables, expand both sides symmetrically); position-aware rewrite rules (context-sensitive replacement, as in finite-state text normalization); maximum-matching word segmentation (greedy/DP word break) for the optional fallback.
